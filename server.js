@@ -15,8 +15,8 @@ app.use(cookieparser());
 const connectdb = require("./Db");
 app.use("/static", express.static(path.join(__dirname, "public")));
 
-const usermodel = require("./models/UserModel");
-const postmodel = require("./models/PostModel");
+const usermodel = require("./Models/UserModel");
+const postmodel = require("./Models/PostModel");
 // const IsLogin = require("./IsLogin");
 
 require("dotenv").config();
@@ -25,7 +25,10 @@ require("dotenv").config();
 const cors = require("cors");
 app.use(
   cors({
-    origin: process.env.NODE_ENV === 'production' ? 'https://blog-jay18.netlify.app/' : 'http://localhost:3000',
+    origin:
+      process.env.NODE_ENV === "production"
+        ? "https://blog-jay18.netlify.app/"
+        : "http://localhost:3000",
     credentials: true,
   })
 );
@@ -38,8 +41,8 @@ app.use(
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
-      secure: process.env.NODE_ENV === 'production', // Secure cookies in production
-      sameSite: 'Lax', // Prevent CSRF attacks
+      secure: process.env.NODE_ENV === "production", // Secure cookies in production
+      sameSite: "Lax", // Prevent CSRF attacks
     },
   })
 );
@@ -75,7 +78,7 @@ app.post("/api/signup", async function (req, res) {
   let token = jwt.sign(
     { username: newUser.username, userid: newUser._id },
     process.env.JWT,
-    { expiresIn: '1d' } 
+    { expiresIn: "1d" }
   );
 
   await newUser.save();
@@ -117,7 +120,7 @@ app.post("/api/login", async function (req, res) {
     let token = jwt.sign(
       { username: user.username, userid: user._id },
       process.env.JWT,
-      { expiresIn: '1d' } 
+      { expiresIn: "1d" }
     );
 
     // Set token cookie
@@ -173,7 +176,6 @@ app.post("/api/blog", async (req, res) => {
     res.status(500).json({ error: "Error creating post" });
   }
 });
-
 
 app.get("/api/posts", async (req, res) => {
   try {
