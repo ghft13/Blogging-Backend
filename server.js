@@ -42,7 +42,7 @@ app.use(
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Secure cookies in production
-      sameSite: "Lax", // Prevent CSRF attacks
+      sameSite: "None", // Prevent CSRF attacks
     },
   })
 );
@@ -87,7 +87,7 @@ app.post("/api/signup", async function (req, res) {
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
-    sameSite: "Lax",
+    sameSite: "None",
   });
 
   res
@@ -128,7 +128,7 @@ app.post("/api/login", async function (req, res) {
       maxAge: 1000 * 60 * 60 * 24, // 1 day
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // Secure in production
-      sameSite: "Lax",
+      sameSite: "None",
     });
 
     res
