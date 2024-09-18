@@ -23,15 +23,15 @@ require("dotenv").config();
 
 // const MongoStore = require("connect-mongo");
 const cors = require("cors");
+
 app.use(
   cors({
-    origin:
-      process.env.NODE_ENV === "production"
-        ? "https://blog-jay18.netlify.app/"
-        : "http://localhost:3000",
-    credentials: true,
+    origin: "https://blog-jay18.netlify.app", // Exact domain without trailing slash
+    credentials: true, // If you are using cookies, tokens, or sessions
   })
 );
+
+app.options("*", cors());
 
 app.use(
   session({
